@@ -1,5 +1,10 @@
-FROM alpine:latest
+FROM ubuntu:latest
 
-RUN wget https://github.com/redpanda-data/redpanda/releases/download/v21.11.8/rpk-linux-amd64.zip && unzip rpk-linux-amd64.zip
+WORKDIR /app
+RUN apt update && \
+  apt install curl sudo -y && \
+  useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo && \
+  curl -1sLf 'https://packages.vectorized.io/nzc4ZYQK3WRGd9sy/redpanda/cfg/setup/bash.deb.sh' | sudo -E bash && \
+  apt install redpanda -y
 
-CMD ./rpk
+ENTRYPOINT [ "rpk" ] 
