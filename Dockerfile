@@ -1,6 +1,5 @@
 FROM ubuntu:latest
 
-WORKDIR /app
 RUN apt update && \
   apt install curl sudo -y && \
   useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo && \
